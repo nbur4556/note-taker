@@ -29,7 +29,7 @@ app.get('/api/notes', (req, res) => {
 app.post('/api/notes', (req, res) => {
     let data = req.body;
 
-    fs.appendFile('db/db.json', err => {
+    fs.appendFile('db/db.json', JSON.stringify(data), err => {
         if (err) throw err;
     });
 

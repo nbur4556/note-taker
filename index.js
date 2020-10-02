@@ -6,11 +6,11 @@ const app = express();
 let PORT = 3000;
 
 app.get('/', (req, res) => {
-    res.send('<h1>Hello World</h1>');
+    res.sendFile(`${__dirname}/public/index.html`);
 });
 
 app.get('/notes', (req, res) => {
-    res.send('<h1>Hello Notes</h1>');
+    res.sendFile(`${__dirname}/public/notes.html`);
 });
 
 app.listen(PORT, () => {

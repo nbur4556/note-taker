@@ -6,7 +6,7 @@ const app = express();
 let PORT = 3000;
 
 // Returns db file as JSON data
-function getDbData(filePath = `__dirname/db/db.json`) {
+function getDbData(filePath = `${__dirname}/db/db.json`) {
     let data = fs.readFileSync('db/db.json', 'utf8');
     return JSON.parse(data);
 }

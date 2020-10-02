@@ -5,14 +5,14 @@ const app = express();
 
 let PORT = 3000;
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
 // Returns db file as JSON data
 function getDbData(filePath = `__dirname/db/db.json`) {
     let data = fs.readFileSync('db/db.json', 'utf8');
     return JSON.parse(data);
 }
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // PAGE ENDPOINT
 app.get('/', (req, res) => {

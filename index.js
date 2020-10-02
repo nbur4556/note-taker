@@ -22,8 +22,18 @@ app.get('/api/notes', (req, res) => {
     fs.readFile('db/db.json', 'utf8', (err, data) => {
         if (err) throw err;
 
-        res.json(data);
+        return res.json(data);
     });
+});
+
+app.post('/api/notes', (req, res) => {
+    let data = req.body;
+
+    fs.appendFile('db/db.json', err => {
+        if (err) throw err;
+    });
+
+    return res.json(data);
 });
 
 app.listen(PORT, () => {

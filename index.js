@@ -8,6 +8,12 @@ let PORT = 3000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Returns db file as JSON data
+function getDbData(filePath = `__dirname/db/db.json`) {
+    let data = fs.readFileSync('db/db.json', 'utf8');
+    return JSON.parse(data);
+}
+
 // PAGE ENDPOINT
 app.get('/', (req, res) => {
     res.sendFile(`${__dirname}/public/index.html`);
@@ -19,11 +25,8 @@ app.get('/notes', (req, res) => {
 
 // API ENDPOINT
 app.get('/api/notes', (req, res) => {
-    fs.readFile('db/db.json', 'utf8', (err, data) => {
-        if (err) throw err;
-
-        return res.json(data);
-    });
+    data = getDbData();
+    return res.json(data);
 });
 
 app.post('/api/notes', (req, res) => {

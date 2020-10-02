@@ -25,18 +25,21 @@ app.get('/notes', (req, res) => {
 
 // API ENDPOINT
 app.get('/api/notes', (req, res) => {
-    data = getDbData();
-    return res.json(data);
+    dataArray = getDbData();
+    return res.json(dataArray);
 });
 
 app.post('/api/notes', (req, res) => {
-    let data = req.body;
+    let dataArray = getDbData();
+    let newData = req.body;
 
-    fs.appendFile('db/db.json', JSON.stringify(data), err => {
+    dataArray.push(newData);
+
+    fs.writeFile('db/db.json', JSON.stringify(dataArray), err => {
         if (err) throw err;
     });
 
-    return res.json(data);
+    return res.json(dataArray);
 });
 
 app.listen(PORT, () => {

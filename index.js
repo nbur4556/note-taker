@@ -1,4 +1,5 @@
 const express = require('express');
+const moment = require('moment');
 const fs = require('fs');
 
 const app = express();
@@ -24,11 +25,13 @@ app.get('/notes', (req, res) => {
 });
 
 // API ENDPOINT
+// Get Note Info
 app.get('/api/notes', (req, res) => {
     dataArray = getDbData();
     return res.json(dataArray);
 });
 
+// Add a Note
 app.post('/api/notes', (req, res) => {
     let dataArray = getDbData();
     let newData = req.body;
@@ -42,6 +45,15 @@ app.post('/api/notes', (req, res) => {
     return res.json(dataArray);
 });
 
+// Delete a Note
+app.delete('/api/notes/:noteid', (req, res) => {
+    let { noteid } = req.params;
+
+    console.log(noteid);
+    console.log(moment().format('yyyyMMDDHHmmssSS'));
+})
+
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
 });
+

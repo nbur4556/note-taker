@@ -45,8 +45,8 @@ app.post('/api/notes', (req, res) => {
 
     // Use current timestamp as data id
     newData.id = moment().format('yyyyMMDDHHmmssSS');
-
     dataArray.push(newData);
+
     writeDbData(dataArray);
     return res.json(dataArray);
 });

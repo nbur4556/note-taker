@@ -36,6 +36,8 @@ app.post('/api/notes', (req, res) => {
     let dataArray = getDbData();
     let newData = req.body;
 
+    newData.id = moment().format('yyyyMMDDHHmmssSS');
+
     dataArray.push(newData);
 
     fs.writeFile('db/db.json', JSON.stringify(dataArray), err => {
@@ -46,11 +48,10 @@ app.post('/api/notes', (req, res) => {
 });
 
 // Delete a Note
-app.delete('/api/notes/:noteid', (req, res) => {
-    let { noteid } = req.params;
+app.delete('/api/notes/:id', (req, res) => {
+    let { id } = req.params;
 
-    console.log(noteid);
-    console.log(moment().format('yyyyMMDDHHmmssSS'));
+    console.log(id);
 })
 
 app.listen(PORT, () => {

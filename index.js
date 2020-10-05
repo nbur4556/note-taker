@@ -8,7 +8,7 @@ let PORT = 3000;
 
 // Returns db file as JSON data
 function getDbData(filePath = `${__dirname}/db/db.json`) {
-    let data = fs.readFileSync('db/db.json', 'utf8');
+    let data = fs.readFileSync(filePath, 'utf8');
     return JSON.parse(data);
 }
 
@@ -36,6 +36,7 @@ app.post('/api/notes', (req, res) => {
     let dataArray = getDbData();
     let newData = req.body;
 
+    // Use current timestamp as data id
     newData.id = moment().format('yyyyMMDDHHmmssSS');
 
     dataArray.push(newData);
@@ -49,9 +50,18 @@ app.post('/api/notes', (req, res) => {
 
 // Delete a Note
 app.delete('/api/notes/:id', (req, res) => {
+    let dataArray = getDbData();
     let { id } = req.params;
 
-    console.log(id);
+    // Remove data object with matching id from dataArray
+    for (let i = 0; i < dataArray.length; i++) {
+        if (dataArray[i].id == id) {
+            console.log('match');
+            dataArray.splice(i, 1);
+        }
+    }
+
+    console.log(dataArray);
 })
 
 app.listen(PORT, () => {

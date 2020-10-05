@@ -12,6 +12,13 @@ function getDbData(filePath = `${__dirname}/db/db.json`) {
     return JSON.parse(data);
 }
 
+// Writes JSON data to db file
+function writeDbData(data, filePath = `${__dirname}/db/db.json`) {
+    fs.writeFile(filePath, JSON.stringify(data), err => {
+        if (err) throw err;
+    });
+}
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -40,11 +47,7 @@ app.post('/api/notes', (req, res) => {
     newData.id = moment().format('yyyyMMDDHHmmssSS');
 
     dataArray.push(newData);
-
-    fs.writeFile('db/db.json', JSON.stringify(dataArray), err => {
-        if (err) throw err;
-    });
-
+    writeDbData(dataArray);
     return res.json(dataArray);
 });
 
@@ -61,6 +64,7 @@ app.delete('/api/notes/:id', (req, res) => {
         }
     }
 
+    writeDbData(dataArray);
     console.log(dataArray);
 })
 

@@ -59,13 +59,12 @@ app.delete('/api/notes/:id', (req, res) => {
     // Remove data object with matching id from dataArray
     for (let i = 0; i < dataArray.length; i++) {
         if (dataArray[i].id == id) {
-            console.log('match');
             dataArray.splice(i, 1);
         }
     }
 
     writeDbData(dataArray);
-    console.log(dataArray);
+    res.json(dataArray);
 })
 
 app.listen(PORT, () => {
